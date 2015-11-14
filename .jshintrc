@@ -1,0 +1,21 @@
+{
+  "boss" : true,
+  "browser" : false,
+  "camelcase" : true,
+  "curly" : true,
+  "eqeqeq" : true,
+  "eqnull" : true,
+  "esnext" : true,
+  "globalstrict" : true,
+  "immed" : true,
+  "latedef" : true,
+  "maxlen" : 120,
+  "newcap" : true,
+  "noarg" : true,
+  "node" : true,
+  "quotmark" : "single",
+  "strict" : true,
+  "sub" : true,
+  "undef" : true,
+  "unused" : true
+}
