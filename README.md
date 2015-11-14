@@ -122,5 +122,7 @@ JSHint and JSBeautifier steps should pass.
 
 ## Release History
 
-### 0.0.1
+### 0.2.2
+
+Stable version with test coverage and docs.
 
