@@ -41,6 +41,7 @@ grunt.initConfig({
 #### options.changeCase
 Type: `String`
 Default value: `'param'`
+Valid values: `'sentenceCase'|'camelCase'|'pascalCase'|'snakeCase'|'paramCase'|'constantCase'`
 
 How to convert the build target to a remote name.
 This option is directly passed to [https://www.npmjs.com/package/change-case](https://www.npmjs.com/package/change-case)

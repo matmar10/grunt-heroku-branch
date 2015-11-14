@@ -1,6 +1,7 @@
 'use strict';
 
-// var grunt = require('grunt');
+var grunt = require('grunt');
+var shell = require('shelljs');
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -24,10 +25,30 @@
 
 exports.herokuBranchSetup = {
   setUp: function (done) {
-    // setup here if necessary
     done();
   },
-  // defaultOptions: function (test) {
+  defaultOptions: function (test) {
+    var expected = grunt.file.read('test/expected/default-options'),
+      result = shell.exec('git remote --verbose', {
+        async: false,
+        silent: true
+      });
 
-  // }
+    test.notEqual(result.output.indexOf(expected), -1,
+      'Should add specified remotes using default case conversion');
+
+    test.done();
+  },
+  camelCase: function (test) {
+    var expected = grunt.file.read('test/expected/camel-case'),
+      result = shell.exec('git remote --verbose', {
+        async: false,
+        silent: true
+      });
+
+    test.notEqual(result.output.indexOf(expected), -1,
+      'Should add specified remotes using default case conversion');
+
+    test.done();
+  }
 };

@@ -61,7 +61,13 @@ module.exports = function (grunt) {
     // Configuration to be run (and then tested).
     herokuBranch: {
       production: 'git@heroku.com:soma-test-grunt-prod.git',
-      development: 'git@heroku.com:soma-test-grunt-dev.git'
+      camelCase: {
+        options: {
+          changeCase: 'camelCase'
+        },
+        name: 'some_remote',
+        url: 'git@heroku.com:soma-test-grunt-prod.git'
+      }
     },
 
     // Unit tests.
@@ -80,7 +86,14 @@ module.exports = function (grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['jsbeautifier:test', 'jshint', 'clean', 'herokuBranch', 'nodeunit']);
+  grunt.registerTask('test', [
+    'jsbeautifier:test',
+    'jshint',
+    'clean',
+    'herokuBranch:production',
+    'herokuBranch:camelCase',
+    'nodeunit'
+  ]);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jsbeautifier:dev', 'test']);

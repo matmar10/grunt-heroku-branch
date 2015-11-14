@@ -22,11 +22,39 @@ module.exports = function (grunt) {
         }),
         gitUrlRegex =
         '(?:git|ssh|https?|git@[\\w\\.]+):(?:\\/\\/)?[\\w\\.@:\\/~_-]+\\.git(?:\\/?|\\#[\\d\\w\\.\\-_]+?)',
+        supportedCases = {
+          sentence: true,
+          camel: true,
+          pascal: true,
+          snake: true,
+          param: true,
+          constant: true
+        },
         findOrCreate, buildExactMatches, buildRegexes, result, regexes,
         exactMatches, isGitUrl, remoteName, remoteUrl;
 
-      remoteName = changeCase[options.changeCase](this.target);
-      remoteUrl = this.data;
+      if (!supportedCases[options.changeCase] && !supportedCases[options.changeCase.replace('Case', '')]) {
+        grunt.fail.fatal('changeCase method `' + options.changeCase +
+          '` is not supported; supported options are:', options.supportedCases);
+        return;
+      }
+
+      switch (typeof this.data) {
+        case 'string':
+          remoteName = changeCase[options.changeCase](this.target);
+          remoteUrl = this.data;
+          break;
+        case 'object':
+          remoteName = changeCase[options.changeCase](this.data.name);
+          remoteUrl = this.data.url;
+          break;
+        default:
+          grunt.fail.fatal('Invalid data provided for target `' + this.target + '`');
+          return;
+      }
+
+      grunt.verbose.writeln('Remote name is:', this.data.name);
+      grunt.verbose.writeln('Remote URL is:', this.data.url);
 
       isGitUrl = function (url) {
         return url.match(new RegExp(gitUrlRegex));
