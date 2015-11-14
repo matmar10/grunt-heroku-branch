@@ -1,7 +1,7 @@
 {
   "name": "grunt-heroku-branch",
   "description": "Wrapper to add the appropriate branches in git via grunt config",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/matmar10/grunt-heroku-branch",
   "author": {
     "name": "Matthew J. Martin",
