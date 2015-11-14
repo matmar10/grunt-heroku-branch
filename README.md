@@ -4,6 +4,12 @@ Wrapper to add the appropriate heroku remotes to git via grunt config
 
 ## Getting Started
 
+### Prerequisite
+
+You must install the Heroku toolbelt locally:
+
+[https://toolbelt.heroku.com/](https://toolbelt.heroku.com/)
+
 This plugin requires Grunt `~0.4.5`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
@@ -30,8 +36,8 @@ grunt.initConfig({
     options: {
       changeCase: 'camelCase'
     },
-    production: 'git@heroku.com:your-production-app-name.git',
-    development: 'git@heroku.com:your-development-app-name.git',
+    production: 'your-production-app-name',
+    development: 'your-development-app-name',
   }
 });
 ```
@@ -54,8 +60,8 @@ grunt.initConfig({
     options: {
       changeCase: 'camelCase'
     },
-    remote_one: 'git@heroku.com:your-production-app-name.git',
-    remoteTwo: 'git@heroku.com:your-development-app-name.git',
+    remote_one: 'your-production-app-name',
+    remoteTwo: 'your-development-app-name',
   }
 });
 ```
@@ -74,8 +80,8 @@ remoteTwo	git@heroku.com:your-development-app-name.git (push)
 ```js
 grunt.initConfig({
   herokuBranch: {
-    production: 'git@heroku.com:your-production-app-name.git',
-    development: 'git@heroku.com:your-development-app-name.git',
+    production: 'your-production-app-name',
+    development: 'your-development-app-name',
   }
 });
 ```
@@ -83,8 +89,8 @@ grunt.initConfig({
 Would produce the following result for `git remote -v`:
 
 ```js
-production	git@heroku.com:your-development-app-name.git (fetch)
-development	git@heroku.com:your-development-app-name.git (push)
+production	https://git.heroku.com:your-development-app-name.git (fetch)
+development	https://git.heroku.com:your-development-app-name.git (push)
 ```
 
 #### Custom Options
@@ -98,11 +104,11 @@ grunt.initConfig({
   },
   target1: {
     name: 'production',
-    url: 'git@heroku.com:your-production-app-name.git'
+    url: 'your-production-app-name'
   },
   target2: {
     name: 'development',
-    url: 'git@heroku.com:your-development-app-name.git'
+    url: 'your-development-app-name'
   }
 });
 ```
@@ -110,10 +116,10 @@ grunt.initConfig({
 Running `grunt herokuBranch:target1` and `grunt herokuBranch:target2` will produce the following results for `git remote -v`:
 
 ```js
-PRODUCTION	git@heroku.com:your-production-app-name.git (fetch)
-PRODUCTION	git@heroku.com:your-production-app-name.git (push)
-DEVELOPMENT	git@heroku.com:your-development-app-name.git (fetch)
-DEVELOPMENT	git@heroku.com:your-development-app-name.git (push)
+PRODUCTION	https://git.heroku.com:your-production-app-name.git (fetch)
+PRODUCTION	https://git.heroku.com:your-production-app-name.git (push)
+DEVELOPMENT	https://git.heroku.com:your-development-app-name.git (fetch)
+DEVELOPMENT	https://git.heroku.com:your-development-app-name.git (push)
 ```
 
 ## Contributing

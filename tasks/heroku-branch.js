@@ -19,6 +19,7 @@ module.exports = function (grunt) {
 
       var options = this.options({
           changeCase: 'param',
+          protocol: 'http'
         }),
         gitUrlRegex =
         '(?:git|ssh|https?|git@[\\w\\.]+):(?:\\/\\/)?[\\w\\.@:\\/~_-]+\\.git(?:\\/?|\\#[\\d\\w\\.\\-_]+?)',
@@ -31,7 +32,7 @@ module.exports = function (grunt) {
           constant: true
         },
         findOrCreate, buildExactMatches, buildRegexes, result, regexes,
-        exactMatches, isGitUrl, remoteName, remoteUrl;
+        exactMatches, isGitUrl, remoteName, remoteUrl, remoteApp;
 
       if (!supportedCases[options.changeCase] && !supportedCases[options.changeCase.replace('Case', '')]) {
         grunt.fail.fatal('changeCase method `' + options.changeCase +
@@ -42,19 +43,32 @@ module.exports = function (grunt) {
       switch (typeof this.data) {
         case 'string':
           remoteName = changeCase[options.changeCase](this.target);
-          remoteUrl = this.data;
+          remoteApp = this.data;
           break;
         case 'object':
           remoteName = changeCase[options.changeCase](this.data.name);
-          remoteUrl = this.data.url;
+          remoteApp = this.data.app;
           break;
         default:
           grunt.fail.fatal('Invalid data provided for target `' + this.target + '`');
           return;
       }
 
-      grunt.verbose.writeln('Remote name is:', this.data.name);
-      grunt.verbose.writeln('Remote URL is:', this.data.url);
+      switch (options.protocol) {
+        case 'http':
+          remoteUrl = 'git@heroku.com:' + remoteApp + '.git';
+          break;
+        case 'ssh':
+          remoteUrl = 'https://git@heroku.com:' + remoteApp + '.git';
+          break;
+        default:
+          grunt.fail.fatal('Invalid protocol specified in options');
+          return;
+      }
+
+      grunt.verbose.writeln('Remote name is:', remoteName);
+      grunt.verbose.writeln('Remote app is:', remoteApp);
+      grunt.verbose.writeln('Remote URL is:', remoteUrl);
 
       isGitUrl = function (url) {
         return url.match(new RegExp(gitUrlRegex));
@@ -118,7 +132,7 @@ module.exports = function (grunt) {
         if (!removed) {
           grunt.verbose.writeln('Remote ' + remoteName + '` does not exist; adding now');
         }
-        result = shell.exec('git remote add ' + remoteName + ' ' + remoteUrl);
+        result = shell.exec('heroku git:remote -r ' + remoteName + ' -a ' + remoteApp);
         if (result.code) {
           grunt.fail.fatal('Could not add remote `' + remoteName + '`:', result.output);
           return;

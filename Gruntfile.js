@@ -60,13 +60,13 @@ module.exports = function (grunt) {
 
     // Configuration to be run (and then tested).
     herokuBranch: {
-      production: 'git@heroku.com:soma-test-grunt-prod.git',
+      production: 'grunt-heroku-branch-test',
       camelCase: {
         options: {
           changeCase: 'camelCase'
         },
         name: 'some_remote',
-        url: 'git@heroku.com:soma-test-grunt-prod.git'
+        app: 'grunt-heroku-branch-test'
       }
     },
 

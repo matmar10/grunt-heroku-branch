@@ -1,2 +1,2 @@
-someRemote	git@heroku.com:soma-test-grunt-prod.git (fetch)
-someRemote	git@heroku.com:soma-test-grunt-prod.git (push)
+someRemote	https://git.heroku.com/grunt-heroku-branch-test.git (fetch)
+someRemote	https://git.heroku.com/grunt-heroku-branch-test.git (push)
