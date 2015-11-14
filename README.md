@@ -88,25 +88,31 @@ development	git@heroku.com:your-development-app-name.git (push)
 ```
 
 #### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
 
+Customize the case used;
 
 ```js
 grunt.initConfig({
   options: {
     changeCase: 'constantCase'
   },
-  herokuBranch: {
-    production: 'git@heroku.com:your-production-app-name.git',
-    development: 'git@heroku.com:your-development-app-name.git',
+  target1: {
+    name: 'production',
+    url: 'git@heroku.com:your-production-app-name.git'
+  },
+  target2: {
+    name: 'development',
+    url: 'git@heroku.com:your-development-app-name.git'
   }
 });
 ```
 
-Would produce the following result for `git remote -v`:
+Running `grunt herokuBranch:target1` and `grunt herokuBranch:target2` will produce the following results for `git remote -v`:
 
 ```js
-PRODUCTION	git@heroku.com:your-development-app-name.git (fetch)
+PRODUCTION	git@heroku.com:your-production-app-name.git (fetch)
+PRODUCTION	git@heroku.com:your-production-app-name.git (push)
+DEVELOPMENT	git@heroku.com:your-development-app-name.git (fetch)
 DEVELOPMENT	git@heroku.com:your-development-app-name.git (push)
 ```
 
@@ -117,7 +123,4 @@ JSHint and JSBeautifier steps should pass.
 ## Release History
 
 ### 0.0.1
-
-Initial working release; no test coverage yet.
-
 
